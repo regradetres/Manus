@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Selecionar Tipo de Produção{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Selecionar Tipo de Produção</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{{ url_for('producao.index') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <i class="bi bi-file-earmark-text display-1 text-primary mb-3"></i>
+                <h5 class="card-title">BPA</h5>
+                <p class="card-text">Boletim de Produção Ambulatorial</p>
+                <a href="{{ url_for('producao.novo_bpa') }}" class="btn btn-primary">Selecionar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <i class="bi bi-file-earmark-medical display-1 text-success mb-3"></i>
+                <h5 class="card-title">RAAS</h5>
+                <p class="card-text">Registro das Ações Ambulatoriais de Saúde</p>
+                <a href="{{ url_for('producao.novo_raas') }}" class="btn btn-success">Selecionar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <i class="bi bi-hospital display-1 text-info mb-3"></i>
+                <h5 class="card-title">AIH</h5>
+                <p class="card-text">Autorização de Internação Hospitalar</p>
+                <a href="{{ url_for('producao.novo_aih') }}" class="btn btn-info">Selecionar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -4,8 +4,8 @@
 - [x] Criar estrutura inicial de diretórios
 - [x] Configurar ambiente virtual Python
 - [x] Instalar dependências básicas (Flask, SQLAlchemy, etc.)
-- [ ] Configurar PostgreSQL
-- [ ] Configurar variáveis de ambiente
+- [x] Configurar PostgreSQL
+- [x] Configurar variáveis de ambiente
 - [x] Criar estrutura básica do projeto Flask
 
 ## Implementação do Backend
@@ -18,18 +18,18 @@
 - [ ] Implementar sistema de logs e auditoria
 
 ## Implementação do Frontend
-- [ ] Configurar templates base e layout principal
-- [ ] Implementar dashboard principal
-- [ ] Desenvolver formulários de cadastro de produção
-- [ ] Implementar interface de importação SIGTAP
-- [ ] Desenvolver visualização de procedimentos
-- [ ] Implementar interface de validação
-- [ ] Desenvolver interface de exportação
+- [x] Configurar templates base e layout principal
+- [x] Implementar dashboard principal
+- [x] Desenvolver formulários de cadastro de produção
+- [x] Implementar interface de importação SIGTAP
+- [x] Desenvolver visualização de procedimentos
+- [x] Implementar interface de validação
+- [x] Desenvolver interface de exportação
 - [ ] Implementar sistema de logs e relatórios
 
 ## Testes e Documentação
-- [ ] Implementar testes unitários
-- [ ] Realizar testes de integração
+- [x] Implementar testes unitários
+- [x] Realizar testes de integração
 - [ ] Documentar API
 - [ ] Criar manual do usuário
 - [ ] Preparar documentação técnica

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Produção SUS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Produção SUS</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{{ url_for('producao.selecionar_tipo') }}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-plus-circle"></i> Nova Produção
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">BPA</h5>
+                <p class="card-text display-6">{{ bpa_count }}</p>
+                <a href="{{ url_for('producao.listar', tipo='bpa') }}" class="text-white">Ver detalhes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">RAAS</h5>
+                <p class="card-text display-6">{{ raas_count }}</p>
+                <a href="{{ url_for('producao.listar', tipo='raas') }}" class="text-white">Ver detalhes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">AIH</h5>
+                <p class="card-text display-6">{{ aih_count }}</p>
+                <a href="{{ url_for('producao.listar', tipo='aih') }}" class="text-white">Ver detalhes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>Registros Recentes</h4>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th>CNES</th>
+                        <th>Procedimento</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registro in registros_recentes %}
+                    <tr>
+                        <td>{{ registro.tipo }}</td>
+                        <td>{{ registro.data_atendimento.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ registro.cnes }}</td>
+                        <td>{{ registro.procedimento.codigo }} - {{ registro.procedimento.nome|truncate(30) }}</td>
+                        <td>
+                            {% if registro.status == 'pendente' %}
+                            <span class="badge bg-warning">Pendente</span>
+                            {% elif registro.status == 'validado' %}
+                            <span class="badge bg-success">Validado</span>
+                            {% elif registro.status == 'rejeitado' %}
+                            <span class="badge bg-danger">Rejeitado</span>
+                            {% elif registro.status == 'exportado' %}
+                            <span class="badge bg-info">Exportado</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            {% if current_user.perfil in ['admin', 'supervisor'] and registro.status == 'pendente' %}
+                            <a href="{{ url_for('producao.validar', id=registro.id) }}" class="btn btn-sm btn-outline-success">
+                                <i class="bi bi-check-circle"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Nenhum registro encontrado</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

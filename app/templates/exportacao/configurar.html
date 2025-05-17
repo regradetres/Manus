@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Configurar Exportação{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Configurar Exportação</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{{ url_for('exportacao.index') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Parâmetros de Exportação</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo de Arquivo</label>
+                        <select class="form-select" id="tipo" name="tipo" required>
+                            <option value="" selected disabled>Selecione o tipo</option>
+                            <option value="BPA">BPA - Boletim de Produção Ambulatorial</option>
+                            <option value="RAAS">RAAS - Registro das Ações Ambulatoriais de Saúde</option>
+                            <option value="AIH">AIH - Autorização de Internação Hospitalar</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="competencia" class="form-label">Competência</label>
+                        <input type="text" class="form-control" id="competencia" name="competencia" placeholder="AAAAMM" pattern="[0-9]{6}" required>
+                        <div class="form-text">Formato: AAAAMM (ex: 202505 para Maio/2025)</div>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="apenas_validados" name="apenas_validados" checked>
+                        <label class="form-check-label" for="apenas_validados">Incluir apenas registros validados</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-file-earmark-arrow-down"></i> Exportar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Informações</h5>
+            </div>
+            <div class="card-body">
+                <h6>Instruções</h6>
+                <ol>
+                    <li>Selecione o tipo de arquivo a ser gerado.</li>
+                    <li>Informe a competência no formato AAAAMM.</li>
+                    <li>Marque a opção para incluir apenas registros validados (recomendado).</li>
+                    <li>Clique em "Exportar" para gerar o arquivo.</li>
+                </ol>
+                
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Os arquivos gerados seguem o layout oficial do DATASUS e estão prontos para envio através dos sistemas oficiais.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

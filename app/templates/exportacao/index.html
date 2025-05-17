@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Exportação DATASUS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Exportação DATASUS</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{{ url_for('exportacao.configurar') }}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-file-earmark-arrow-down"></i> Nova Exportação
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Histórico de Exportações</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Competência</th>
+                                <th>Arquivo</th>
+                                <th>Registros</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for exportacao in exportacoes %}
+                            <tr>
+                                <td>{{ exportacao.tipo }}</td>
+                                <td>{{ exportacao.competencia }}</td>
+                                <td>{{ exportacao.nome_arquivo }}</td>
+                                <td>{{ exportacao.quantidade_registros }}</td>
+                                <td>{{ exportacao.data_geracao.strftime('%d/%m/%Y %H:%M') }}</td>
+                                <td>
+                                    {% if exportacao.status == 'gerado' %}
+                                    <span class="badge bg-success">Gerado</span>
+                                    {% elif exportacao.status == 'enviado' %}
+                                    <span class="badge bg-info">Enviado</span>
+                                    {% elif exportacao.status == 'aceito' %}
+                                    <span class="badge bg-primary">Aceito</span>
+                                    {% elif exportacao.status == 'rejeitado' %}
+                                    <span class="badge bg-danger">Rejeitado</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('exportacao.download', id=exportacao.id) }}" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                    <a href="{{ url_for('exportacao.resultado', id=exportacao.id) }}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center">Nenhuma exportação encontrada</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

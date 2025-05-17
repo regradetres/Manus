@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Importar SIGTAP{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Importação da Tabela SIGTAP</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{{ url_for('sigtap.procedimentos') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-table"></i> Ver Procedimentos
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Upload do Arquivo SIGTAP</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="arquivo" class="form-label">Arquivo ZIP da Tabela SIGTAP</label>
+                        <input class="form-control" type="file" id="arquivo" name="arquivo" accept=".zip">
+                        <div class="form-text">Selecione o arquivo ZIP oficial do Ministério da Saúde contendo a tabela SIGTAP.</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="confirmar" name="confirmar" required>
+                            <label class="form-check-label" for="confirmar">
+                                Confirmo que este é o arquivo oficial e estou ciente que a importação substituirá os dados atuais.
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-upload"></i> Importar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Informações</h5>
+            </div>
+            <div class="card-body">
+                <h6>Última Importação</h6>
+                <p>Data: <strong>{{ ultima_importacao.data|default('Nenhuma importação realizada') }}</strong></p>
+                <p>Competência: <strong>{{ ultima_importacao.competencia|default('N/A') }}</strong></p>
+                <p>Usuário: <strong>{{ ultima_importacao.usuario|default('N/A') }}</strong></p>
+                
+                <h6 class="mt-3">Instruções</h6>
+                <ol>
+                    <li>Baixe o arquivo ZIP da tabela SIGTAP do site oficial do DATASUS.</li>
+                    <li>Selecione o arquivo ZIP sem descompactá-lo.</li>
+                    <li>Clique em "Importar" e aguarde o processamento.</li>
+                    <li>Verifique os procedimentos importados após a conclusão.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
