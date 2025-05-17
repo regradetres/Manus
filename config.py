@@ -14,14 +14,6 @@ class Config:
     UPLOAD_FOLDER = os.path.join(basedir, 'uploads')
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB
     
-    # Configurações de email para notificações
-    MAIL_SERVER = os.environ.get('MAIL_SERVER')
-    MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
-    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    ADMINS = ['admin@example.com']
-    
     # Configurações específicas da aplicação
     SIGTAP_UPLOAD_FOLDER = os.path.join(basedir, 'uploads', 'sigtap')
     EXPORT_FOLDER = os.path.join(basedir, 'exports')
@@ -48,8 +40,9 @@ class TestConfig(Config):
     WTF_CSRF_ENABLED = False
 
 class ProductionConfig(Config):
+    # Ajuste para usar SQLite em produção para compatibilidade com deploy serverless
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'postgresql://sistema_sus:senha_segura@localhost/sistema_sus_db'
+        'sqlite:///' + os.path.join(basedir, 'prod-app.db')
     
     @classmethod
     def init_app(cls, app):
