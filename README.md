@@ -1,0 +1,1 @@
+# Sistema de Produção SUS\n\nSistema inteligente e simplificado para técnicos e digitadores de secretarias de saúde que precisam gerar arquivos válidos de produção ambulatorial e hospitalar do SUS (BPA, FPO, RAAS e AIH), com base na tabela SIGTAP.
